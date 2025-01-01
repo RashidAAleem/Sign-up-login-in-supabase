@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body{
+            margin: 20px;
+            display: flex;
+            justify-items: center;
+            justify-content: center;
+            align-items: center;
+            max-height: 100vh;
+            height: auto;
+            background-color: #f9f9f9;
+        }
+.form-container{
+    background-color: white;
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba( 0, 0, 0, 0.5);
+    /* height: 200vh; */
+}
+
+.form-header{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label{
+    display: block;
+    margin: 10px 0 5px;
+}
+input{
+    max-width: 360px;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button{
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+}
+button:hover{
+background-color: #0056b3;
+}
+.toggle-btn{
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    margin-top: 10px;
+    display: block;
+}
+.hidden{
+    display: none;
+}
+
+    </style>
+    <title>Toggle Effect</title>
+</head>
+<body>
+    <div class="form-container">
+        <div id="loginForm">
+            <h2 class="form-header">Login</h2>
+            <form action="" method="post">
+                <div>
+                    <label for="loginEmail">Email</label>
+                    <input type="email" name="email" id="loginEmail" required>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <button class="toggle-btn" onclick="toggleForms()">Don't have an account? Sign Up</button>
+        </div>
+    
+<div id="signUpForm" class="hidden">
+    <h2 class="form-header">Sign Up</h2>
+    <form action="post">
+        <div>
+            <label for="signUpFName">First Name</label>
+            <input type="text" name="fName" id="signUpFName" required>
+        </div>
+        <div>
+            <label for="signUpLName">Last Name</label>
+            <input type="text" name="lName" id="signUpLName" required>
+        </div>
+        <div>
+            <label for="signUpPhone">Phone No</label>
+            <input type="tel" name="phoneNo" id="signUpPhone" required>
+        </div>
+        <div>
+            <label for="signUpPassword">Password</label>
+            <input type="password" name="password" id="signUpPassword" required>
+        </div>
+        <button type="submit">Sign Up</button>
+    </form>
+    <button class="toggle-btn" onclick="toggleForms()">Already have an account? Login</button>
+</div>
+    
+    
+    <script>
+        function toggleForms(){
+            const loginForm = document.getElementById('loginForm');
+            const signUpForm = document.getElementById('signUpForm');
+            loginForm.classList.toggle('hidden');
+            signUpForm.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
