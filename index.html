@@ -1,125 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar with Toggleable Forms</title>
     <style>
-        *{
+        /* General reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-        body{
-            margin: 20px;
+
+        /* Body styles */
+        body {
+            min-height: 100vh;
             display: flex;
-            justify-items: center;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            max-height: 100vh;
-            height: auto;
             background-color: #f9f9f9;
         }
-.form-container{
-    background-color: white;
-    max-width: 400px;
-    width: 100%;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba( 0, 0, 0, 0.5);
-    /* height: 200vh; */
+
+        /* Navbar styles */
+        .navbar {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #007bff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Rotate to X */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 8px);
 }
 
-.form-header{
-    text-align: center;
-    margin-bottom: 20px;
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
 }
 
-label{
-    display: block;
-    margin: 10px 0 5px;
-}
-input{
-    max-width: 360px;
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-button{
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    
-}
-button:hover{
-background-color: #0056b3;
-}
-.toggle-btn{
-    background: none;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-    margin-top: 10px;
-    display: block;
-}
-.hidden{
-    display: none;
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -8px);
 }
 
+
+        /* Form container styles */
+        .form-container {
+            background-color: white;
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input:focus {
+            outline: 2px solid #007bff;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+    .nav-links {
+        /* display: none; */
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #007bff;
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+        flex-direction: column;
+        transform: translateX(100%); /* Start hidden off-screen */
+        transition: transform 0.5s ease; /* Smooth transition effect */
+    }
+
+    .nav-links.active {
+        transform: translateX(0); /* Slide into view */
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
     </style>
-    <title>Toggle Effect</title>
 </head>
+
 <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">My Website</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="hamburger" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Form Container -->
     <div class="form-container">
+        <!-- Login Form -->
         <div id="loginForm">
             <h2 class="form-header">Login</h2>
             <form action="" method="post">
-                <div>
-                    <label for="loginEmail">Email</label>
-                    <input type="email" name="email" id="loginEmail" required>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required>
-                </div>
+                <label for="loginEmail">Email</label>
+                <input type="email" name="email" id="loginEmail" required>
+                <label for="loginPassword">Password</label>
+                <input type="password" name="password" id="loginPassword" required>
                 <button type="submit">Login</button>
             </form>
             <button class="toggle-btn" onclick="toggleForms()">Don't have an account? Sign Up</button>
         </div>
-    
-<div id="signUpForm" class="hidden">
-    <h2 class="form-header">Sign Up</h2>
-    <form action="post">
-        <div>
-            <label for="signUpFName">First Name</label>
-            <input type="text" name="fName" id="signUpFName" required>
+
+        <!-- Sign Up Form -->
+        <div id="signUpForm" class="hidden">
+            <h2 class="form-header">Sign Up</h2>
+            <form action="" method="post">
+                <label for="signUpFName">First Name</label>
+                <input type="text" name="fName" id="signUpFName" required>
+                <label for="signUpLName">Last Name</label>
+                <input type="text" name="lName" id="signUpLName" required>
+                <label for="signUpPhone">Phone No</label>
+                <input type="tel" name="phone" id="signUpPhone" required>
+                <label for="signUpPassword">Password</label>
+                <input type="password" name="password" id="signUpPassword" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <button class="toggle-btn" onclick="toggleForms()">Already have an account? Login</button>
         </div>
-        <div>
-            <label for="signUpLName">Last Name</label>
-            <input type="text" name="lName" id="signUpLName" required>
-        </div>
-        <div>
-            <label for="signUpPhone">Phone No</label>
-            <input type="tel" name="phoneNo" id="signUpPhone" required>
-        </div>
-        <div>
-            <label for="signUpPassword">Password</label>
-            <input type="password" name="password" id="signUpPassword" required>
-        </div>
-        <button type="submit">Sign Up</button>
-    </form>
-    <button class="toggle-btn" onclick="toggleForms()">Already have an account? Login</button>
-</div>
-    
-    
+    </div>
+
     <script>
-        function toggleForms(){
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active'); // Toggle the X animation
+
+        });
+
+        // Toggle between login and signup forms
+        function toggleForms() {
             const loginForm = document.getElementById('loginForm');
             const signUpForm = document.getElementById('signUpForm');
             loginForm.classList.toggle('hidden');
@@ -127,4 +250,5 @@ background-color: #0056b3;
         }
     </script>
 </body>
+
 </html>
