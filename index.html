@@ -209,7 +209,7 @@
                 <input type="password" name="password" id="loginPassword" required>
                 <button type="submit">Login</button>
             </form>
-            <button class="toggle-btn" onclick="toggleForms()">Don't have an account? Sign Up</button>
+            <button class="toggle-btn" >Don't have an account? Sign Up</button>
         </div>
 
         <!-- Sign Up Form -->
@@ -222,33 +222,17 @@
                 <input type="text" name="lName" id="signUpLName" required>
                 <label for="signUpPhone">Phone No</label>
                 <input type="tel" name="phone" id="signUpPhone" required>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
                 <label for="signUpPassword">Password</label>
                 <input type="password" name="password" id="signUpPassword" required>
-                <button type="submit">Sign Up</button>
+                <button id="signUp">Sign Up</button>
             </form>
-            <button class="toggle-btn" onclick="toggleForms()">Already have an account? Login</button>
+            <button class="toggle-btn">Already have an account? Login</button>
         </div>
     </div>
-
-    <script>
-        // Hamburger menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active'); // Toggle the X animation
-
-        });
-
-        // Toggle between login and signup forms
-        function toggleForms() {
-            const loginForm = document.getElementById('loginForm');
-            const signUpForm = document.getElementById('signUpForm');
-            loginForm.classList.toggle('hidden');
-            signUpForm.classList.toggle('hidden');
-        }
-    </script>
+<script type="module" src="app.js"></script>
+    
 </body>
 
 </html>
