@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
+<body>
+     <!-- Navbar -->
+     <nav class="navbar">
+        <div class="logo">My Website</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#" id="signOut">Log Out</a></li>
+        </ul>
+        <div class="hamburger" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+<table>
+    <thead>
+        <tr>
+
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Phone No.</th>
+            <th>Email</th>
+            <th>Action</th>
+            
+        </tr>
+        
+    </thead>
+    <tbody>
+        <tr id="data">
+            <!-- <td>John</td>
+            <td>Doe</td>
+            <td>12345678</td>
+            <td>abc@gmail.com</td>
+            <td>Action</td> -->
+        </tr>
+        
+    </tbody>
+    <tfoot></tfoot>
+</table>
+<div id="content"></div>
+    <!-- <button id="signOut">Sign Out</button> -->
+    <script type="module" src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.min.js"></script>
+
+</body>
+</html>

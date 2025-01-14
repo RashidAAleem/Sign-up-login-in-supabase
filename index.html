@@ -4,181 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Responsive Navbar with Toggleable Forms</title>
-    <style>
-        /* General reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Body styles */
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f9f9f9;
-        }
-
-        /* Navbar styles */
-        .navbar {
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: #007bff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links li {
-            display: inline;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #ffd700;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 3px 0;
-            transition: all 0.3s ease;
-        }
-
-        /* Rotate to X */
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 8px);
-}
-
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -8px);
-}
-
-
-        /* Form container styles */
-        .form-container {
-            background-color: white;
-            max-width: 400px;
-            width: 100%;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-
-        .form-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input:focus {
-            outline: 2px solid #007bff;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: #007bff;
-            cursor: pointer;
-            text-decoration: underline;
-            margin-top: 10px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* Responsive Navbar */
-        @media (max-width: 768px) {
-    .nav-links {
-        /* display: none; */
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: #007bff;
-        width: 100%;
-        padding: 20px 0;
-        text-align: center;
-        flex-direction: column;
-        transform: translateX(100%); /* Start hidden off-screen */
-        transition: transform 0.5s ease; /* Smooth transition effect */
-    }
-
-    .nav-links.active {
-        transform: translateX(0); /* Slide into view */
-    }
-
-    .hamburger {
-        display: flex;
-    }
-}
-    </style>
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+<link rel="stylesheet" href="style.css">
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css"
+/>
+<script
+src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.all.min.js"
+></script>
+    </head>
 
 <body>
     <!-- Navbar -->
@@ -207,10 +44,31 @@
                 <input type="email" name="email" id="loginEmail" required>
                 <label for="loginPassword">Password</label>
                 <input type="password" name="password" id="loginPassword" required>
-                <button type="submit">Login</button>
+                <button id="login">Login</button>
             </form>
-            <button class="toggle-btn" >Don't have an account? Sign Up</button>
+            <div class="social-login">
+                <p>Or</p>
+                <br>
+                <p>Login with</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon google"><i class="fab fa-google"></i></a>
+                    <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon github"><i class="fab fa-github"></i></a>
+                </div>
+                <p>Or</p>
+                <span class="signUp-link">
+
+                    Want to create a new account?<a class="toggle-link signUp-link"> Sign Up</a>
+                </span>
+                <p>Or</p>
+                <span class="signUp-link">
+
+                    Forgot Your Password?<a class="toggle-link forgot-password-link"> Reset Password</a>
+                </span>
+            </div>
         </div>
+        
 
         <!-- Sign Up Form -->
         <div id="signUpForm" class="hidden">
@@ -228,7 +86,37 @@
                 <input type="password" name="password" id="signUpPassword" required>
                 <button id="signUp">Sign Up</button>
             </form>
-            <button class="toggle-btn">Already have an account? Login</button>
+            <div class="social-login">
+
+            
+            <span class="signUp-link">
+
+                Already have an account?<a class="toggle-link login-link">Login</a>
+            </span>
+        </div>
+        </div>
+        <!-- Forget Form -->
+        <div id="forgetForm" class="hidden">
+            <h2 class="form-header">Change Your Password</h2>
+            <form action="" method="post">
+                <label for="confirmPhone">Phone No</label>
+                <input type="tel" name="phone" id="confirmPhone" required>
+                <label for="confirmEmail">Email</label>
+                <input type="email" name="email" id="confirmEmail" required>
+                <label for="newPassword">New Password</label>
+                <input type="password" name="password" id="newPassword" required>
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" name="password" id="confirmPassword" required>
+                <button id="changePassword">Change Password</button>
+            </form>
+            <div class="social-login">
+
+            
+            <span class="signUp-link">
+
+                Already have an account?<a class="toggle-link login-link">Login</a>
+            </span>
+        </div>
         </div>
     </div>
 <script type="module" src="app.js"></script>
