@@ -2,7 +2,7 @@
 import { supabase } from "./supabase.js";
 import formFunctions from './toggle.js';
 
-
+// to check
 
 //signout
 try {
