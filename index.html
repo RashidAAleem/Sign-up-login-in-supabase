@@ -1,126 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Responsive Navbar with Toggleable Forms</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
-<link rel="stylesheet" href="style.css">
-<link
-rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css"
-/>
-<script
-src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.all.min.js"
-></script>
-    </head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.all.min.js"></script>
+  </head>
 
-<body>
+  <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">My Website</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <div class="hamburger" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+      <div class="logo">My Website</div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
 
     <!-- Form Container -->
     <div class="form-container">
-        <!-- Login Form -->
-        <div id="loginForm">
-            <h2 class="form-header">Login</h2>
-            <form action="" method="post">
-                <label for="loginEmail">Email</label>
-                <input type="email" name="email" id="loginEmail" required>
-                <label for="loginPassword">Password</label>
-                <input type="password" name="password" id="loginPassword" required>
-                <button id="login">Login</button>
-            </form>
-            <div class="social-login">
-                <p>Or</p>
-                <br>
-                <p>Login with</p>
-                <div class="social-icons">
-                    <a href="#" class="social-icon google"><i class="fab fa-google"></i></a>
-                    <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon github"><i class="fab fa-github"></i></a>
-                </div>
-                <p>Or</p>
-                <span class="signUp-link">
-
-                    Want to create a new account?<a class="toggle-link signUp-link"> Sign Up</a>
-                </span>
-                <p>Or</p>
-                <span class="signUp-link">
-
-                    Forgot Your Password?<a class="toggle-link forgot-password-link"> Reset Password</a>
-                </span>
-            </div>
+      <!-- Login Form -->
+      <div id="loginForm">
+        <h2 class="form-header">Login</h2>
+        <form action="" method="post">
+          <label for="loginEmail">Email</label>
+          <input type="email" name="email" id="loginEmail" required />
+          <label for="loginPassword">Password</label>
+          <input type="password" name="password" id="loginPassword" required />
+          <button id="login">Login</button>
+        </form>
+        <div class="social-login">
+          <p>Or</p>
+          <br />
+          <p>Login with</p>
+          <div class="social-icons">
+            <a href="#" id="googleId" class="social-icon google"
+              ><i class="fab fa-google"></i
+            ></a>
+            <a href="#" class="social-icon facebook"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-icon twitter"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="social-icon github"
+              ><i class="fab fa-github"></i
+            ></a>
+          </div>
+          <p>Or</p>
+          <span class="signUp-link">
+            Want to create a new account?<a class="toggle-link signUp-link">
+              Sign Up</a
+            >
+          </span>
+          <p>Or</p>
+          <span class="signUp-link">
+            Forgot Your Password?<a class="toggle-link forgot-password-link">
+              Reset Password</a
+            >
+          </span>
         </div>
-        
+      </div>
 
-        <!-- Sign Up Form -->
-        <div id="signUpForm" class="hidden">
-            <h2 class="form-header">Sign Up</h2>
-            <form action="" method="post">
-                <label for="signUpFName">First Name</label>
-                <input type="text" name="fName" id="signUpFName" required>
-                <label for="signUpLName">Last Name</label>
-                <input type="text" name="lName" id="signUpLName" required>
-                <label for="signUpPhone">Phone No</label>
-                <input type="tel" name="phone" id="signUpPhone" required>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" required>
-                <label for="signUpPassword">Password</label>
-                <input type="password" name="password" id="signUpPassword" required>
-                <button id="signUp">Sign Up</button>
-            </form>
-            <div class="social-login">
-
-            
-            <span class="signUp-link">
-
-                Already have an account?<a class="toggle-link login-link">Login</a>
-            </span>
+      <!-- Sign Up Form -->
+      <div id="signUpForm" class="hidden">
+        <h2 class="form-header">Sign Up</h2>
+        <form action="" method="post">
+          <label for="signUpFName">First Name</label>
+          <input type="text" name="fName" id="signUpFName" required />
+          <label for="signUpLName">Last Name</label>
+          <input type="text" name="lName" id="signUpLName" required />
+          <label for="signUpPhone">Phone No</label>
+          <input type="tel" name="phone" id="signUpPhone" required />
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" required />
+          <label for="signUpPassword">Password</label>
+          <input type="password" name="password" id="signUpPassword" required />
+          <button id="signUp">Sign Up</button>
+        </form>
+        <div class="social-login">
+          <span class="signUp-link">
+            Already have an account?<a class="toggle-link login-link">Login</a>
+          </span>
         </div>
+      </div>
+      <!-- Forget Form -->
+      <div id="forgetForm" class="hidden">
+        <h2 class="form-header">Change Your Password</h2>
+        <form action="" method="post">
+          <label for="confirmPhone">Phone No</label>
+          <input type="tel" name="phone" id="confirmPhone" required />
+          <label for="confirmEmail">Email</label>
+          <input type="email" name="email" id="confirmEmail" required />
+          <label for="newPassword">New Password</label>
+          <input type="password" name="password" id="newPassword" required />
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            name="password"
+            id="confirmPassword"
+            required
+          />
+          <button id="changePassword">Change Password</button>
+        </form>
+        <div class="social-login">
+          <span class="signUp-link">
+            Already have an account?<a class="toggle-link login-link">Login</a>
+          </span>
         </div>
-        <!-- Forget Form -->
-        <div id="forgetForm" class="hidden">
-            <h2 class="form-header">Change Your Password</h2>
-            <form action="" method="post">
-                <label for="confirmPhone">Phone No</label>
-                <input type="tel" name="phone" id="confirmPhone" required>
-                <label for="confirmEmail">Email</label>
-                <input type="email" name="email" id="confirmEmail" required>
-                <label for="newPassword">New Password</label>
-                <input type="password" name="password" id="newPassword" required>
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" name="password" id="confirmPassword" required>
-                <button id="changePassword">Change Password</button>
-            </form>
-            <div class="social-login">
-
-            
-            <span class="signUp-link">
-
-                Already have an account?<a class="toggle-link login-link">Login</a>
-            </span>
-        </div>
-        </div>
+      </div>
     </div>
-<script type="module" src="app.js"></script>
-    
-</body>
-
+    <script type="module" src="app.js"></script>
+  </body>
 </html>
