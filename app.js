@@ -250,14 +250,21 @@ const displayData = document.getElementById('data');
             // Generate rows dynamically
             const rows = data.map(user => `
                 <tr>
-                    <td>${user.id}</td>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td>${user.phoneNo}</td>
-                    <td>${user.email}</td>
-                    <td><button id = "edit>Edit</button>
-                    <button id = "deleteBtn>Delete</button></td>
-                </tr>
+        <td>${user.id}</td>
+        <td>${user.firstName}</td>
+        <td>${user.lastName}</td>
+        <td>${user.phoneNo}</td>
+        <td>${user.email}</td>
+        <td>
+            <div class="custom-dropdown">
+                <button class="dropdown-btn">Select</button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="editUser(${user.id})">Edit</a>
+                    <a href="#" onclick="deleteUser(${user.id})">Delete</a>
+                </div>
+            </div>
+        </td>
+    </tr>
             `).join(''); // Combine rows into a single string
 
             // Insert rows into the table
