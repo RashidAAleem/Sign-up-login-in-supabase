@@ -1,8 +1,8 @@
 import formFunctions from './toggle.js';
-<<<<<<< HEAD
+// <<<<<<< HEAD
 import {auth} from './auth.js'
 // import { supabase } from "./supabase.js";
-=======
+// =======
 
 // to check
 
@@ -56,7 +56,7 @@ signOut.addEventListener('click', async(e)=>{
 }
 
 // Initialize functions
->>>>>>> eb645237449901b7c735b8b051ee89ebf0564bf6
+// >>>>>>> eb645237449901b7c735b8b051ee89ebf0564bf6
 formFunctions.toggleHamburgerMenu();
 formFunctions.toggleForms();
 
