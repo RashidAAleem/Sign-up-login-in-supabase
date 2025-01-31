@@ -148,7 +148,7 @@ nav li:first-child {
     flex-direction: column;
     width: 100%;
     height: 80vh;
-    background-color: ;
+    /* background-color: ; */
 }
 
 .auth-container {
