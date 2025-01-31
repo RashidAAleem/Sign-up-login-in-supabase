@@ -1,135 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Sidebar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul class="sidebar">
+            <li><a href="#" class="close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#5f6368">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                </svg>
+            </a></li>
+            <!-- <li><button id="theme-toggle" class="theme-btn">🌙 Dark Mode</button></li> Moved to sidebar -->
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Forum</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">Coding2go</a></li>
+            <li class="hideOnMobile"><a href="#">Blog</a></li>
+            <li class="hideOnMobile"><a href="#">Products</a></li>
+            <li class="hideOnMobile"><a href="#">About</a></li>
+            <li class="hideOnMobile"><a href="#">Forum</a></li>
+            <li><button id="theme-toggle" class="theme-btn">🌙 Dark Mode</button></li> <!-- Moved to sidebar -->
 
-    <title>Responsive Navbar with Toggleable Forms</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.all.min.js"></script>
-  </head>
-
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-      <div class="logo">My Website</div>
-      <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <div class="hamburger" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+            <li class="menu-button"><a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#5f6368">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+                </svg>
+            </a></li>
+        </ul>
     </nav>
 
-    <!-- Form Container -->
-    <div class="form-container">
-      <!-- Login Form -->
-      <div id="loginForm">
-        <h2 class="form-header">Login</h2>
-        <form action="" method="post">
-          <label for="loginEmail">Email</label>
-          <input type="email" name="email" id="loginEmail" required />
-          <label for="loginPassword">Password</label>
-          <input type="password" name="password" id="loginPassword" required />
-          <button id="login">Login</button>
-        </form>
-        <div class="social-login">
-          <p>Or</p>
-          <br />
-          <p>Login with</p>
-          <div class="social-icons">
-            <a href="#" id="googleId" class="social-icon google"
-              ><i class="fab fa-google"></i
-            ></a>
-            <a href="#" class="social-icon facebook"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a href="#" class="social-icon twitter"
-              ><i class="fab fa-twitter"></i
-            ></a>
-            <a href="#" class="social-icon github"
-              ><i class="fab fa-github"></i
-            ></a>
+
+
+    <!-- login & signup -->
+    <section class="auth-section">
+      <div class="auth-container">
+        <form action="" id="login-form" class="auth-form">
+          <h2>Login</h2>
+          <div class="input-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="Enter your password" required>
           </div>
-          <p>Or</p>
-          <span class="signUp-link">
-            Want to create a new account?<a class="toggle-link signUp-link">
-              Sign Up</a
-            >
-          </span>
-          <p>Or</p>
-          <span class="signUp-link">
-            Forgot Your Password?<a class="toggle-link forgot-password-link">
-              Reset Password</a
-            >
-          </span>
-        </div>
+          <div class="input-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="auth-btn">Login</button>
+          <div class="social-login">
+            <p>Or login with:</p>
+            <button class="social-btn" id="google-login">
+              <img src="	https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google Logo">
+              Login with Google
+          </button>
+              <button class="social-btn" id="github-login">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub Logo">
+                Login with GitHub
+            </button>
+          </div>
+          <p class="toggle-text">Don't have an account? <span id="to-signup">Sign up</span></p>
+        </form>
+        
+        <!-- Sign Up form -->
+        
+        <form action="" id="signup-form" class="auth-form active">
+          <h2>Sign Up</h2>
+          <div class="input-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" placeholder="Enter your full name" required>
+          </div>
+          <div class="input-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" placeholder="Enter your email" required>
+          </div>
+          <div class="input-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="auth-btn">Sign Up</button>
+          <!-- <div class="social-login">
+            <p>Or login with:</p>
+            <button class="social-btn" id="google-login">
+              <img src="	https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google Logo">
+              Login with Google
+          </button>
+              <button class="social-btn" id="github-login">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub Logo">
+                Login with GitHub
+            </button>
+          </div> -->
+          <p class="toggle-text">Already have an account? <span id="to-login">Login</span></p>
+        </form>
       </div>
 
-      <!-- Sign Up Form -->
-      <div id="signUpForm" class="hidden">
-        <h2 class="form-header">Sign Up</h2>
-        <form action="" method="post">
-          <label for="signUpFName">First Name</label>
-          <input type="text" name="fName" id="signUpFName" required />
-          <label for="signUpLName">Last Name</label>
-          <input type="text" name="lName" id="signUpLName" required />
-          <label for="signUpPhone">Phone No</label>
-          <input type="tel" name="phone" id="signUpPhone" required />
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" required />
-          <label for="signUpPassword">Password</label>
-          <input type="password" name="password" id="signUpPassword" required />
-          <button id="signUp">Sign Up</button>
-        </form>
-        <div class="social-login">
-          <span class="signUp-link">
-            Already have an account?<a class="toggle-link login-link">Login</a>
-          </span>
-        </div>
-      </div>
-      <!-- Forget Form -->
-      <div id="forgetForm" class="hidden">
-        <h2 class="form-header">Change Your Password</h2>
-        <form action="" method="post">
-          <label for="confirmPhone">Phone No</label>
-          <input type="tel" name="phone" id="confirmPhone" required />
-          <label for="confirmEmail">Email</label>
-          <input type="email" name="email" id="confirmEmail" required />
-          <label for="newPassword">New Password</label>
-          <input type="password" name="password" id="newPassword" required />
-          <label for="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            name="password"
-            id="confirmPassword"
-            required
-          />
-          <button id="changePassword">Change Password</button>
-        </form>
-        <div class="social-login">
-          <span class="signUp-link">
-            Already have an account?<a class="toggle-link login-link">Login</a>
-          </span>
-        </div>
-      </div>
-    </div>
-    <script type="module" src="app.js"></script>
-  </body>
+
+
+    </section>
+<script type="module" src="app.js"></script>
+    
+</body>
 </html>
