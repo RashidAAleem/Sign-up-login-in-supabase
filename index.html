@@ -41,19 +41,9 @@
     <!-- login & signup -->
     <section class="auth-section">
       <div class="auth-container">
-        <form action="" id="login-form" class="auth-form">
-          <h2>Login</h2>
-          <div class="input-group">
-            <label for="login-email">Email</label>
-            <input type="email" id="login-email" placeholder="Enter your password" required>
-          </div>
-          <div class="input-group">
-            <label for="login-password">Password</label>
-            <input type="password" id="login-password" placeholder="Enter your password" required>
-          </div>
-          <button type="submit" class="auth-btn">Login</button>
+        <form action="" id="login-form" class="auth-form active">
+          <h2>Welcome</h2>
           <div class="social-login">
-            <p>Or login with:</p>
             <button class="social-btn" id="google-login">
               <img src="	https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google Logo">
               Login with Google
@@ -62,13 +52,45 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub Logo">
                 Login with GitHub
             </button>
+            <p>Or</p>
           </div>
+          <div class="input-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="Enter your password" required>
+          </div>
+          <div class="input-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="auth-btn" id="login-btn">Login</button>
+          <p class="toggle-text">Forgot Password? <span id="to-changePassword">Click Here</span></p>
           <p class="toggle-text">Don't have an account? <span id="to-signup">Sign up</span></p>
         </form>
         
+        <!-- Change Password form -->
+        
+        <form action="" id="changePassword-form" class="auth-form">
+          <h2>Change Password</h2>
+         
+          <div class="input-group">
+            <label for="confirm-email">Email</label>
+            <input type="email" id="confirm-email" placeholder="Enter your email" required>
+          </div>
+          <div class="input-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" placeholder="Enter your password" required>
+          </div>
+          <div class="input-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="auth-btn" id="changePassword-btn">Change Password</button>
+         
+          <p class="toggle-text">Remember Password? <span id="to-login">Login</span></p>
+        </form>
         <!-- Sign Up form -->
         
-        <form action="" id="signup-form" class="auth-form active">
+        <form action="" id="signup-form" class="auth-form">
           <h2>Sign Up</h2>
           <div class="input-group">
             <label for="signup-name">Full Name</label>
@@ -82,7 +104,7 @@
             <label for="signup-password">Password</label>
             <input type="password" id="signup-password" placeholder="Enter your password" required>
           </div>
-          <button type="submit" class="auth-btn">Sign Up</button>
+          <button type="submit" class="auth-btn" id="signUp-btn">Sign Up</button>
           <!-- <div class="social-login">
             <p>Or login with:</p>
             <button class="social-btn" id="google-login">
@@ -94,7 +116,7 @@
                 Login with GitHub
             </button>
           </div> -->
-          <p class="toggle-text">Already have an account? <span id="to-login">Login</span></p>
+          <p class="toggle-text">Already have an account? <span id="signUp-to-login">Login</span></p>
         </form>
       </div>
 

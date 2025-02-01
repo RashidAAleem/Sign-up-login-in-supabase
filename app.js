@@ -1,7 +1,14 @@
-
 import { init } from "./responsive.js";
-import { toggleForm } from "./toggle.js";
+import { initializeFormSwitch } from "./toggleSignUplogIn.js";
+import { auth } from "./auth.js";
+// import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/+esm';
 init();
 
-// <<<<<<< HEAD
-import {auth} from './auth.js'
+// toggle between signup and login form
+initializeFormSwitch();
+
+// login signup
+auth();
+
+
+// handleupdPassword();

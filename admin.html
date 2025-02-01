@@ -10,46 +10,51 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">My Website</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#" id="updPassword">Update Password</a></li>
-            <li><a href="#" id="signOut">Log Out</a></li>
-            <!-- <li><a href="#" id="resetPassword">ResetPassword</a></li> -->
+    
+
+    <nav>
+        <ul class="sidebar">
+            <li><a href="#" class="close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#5f6368">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                </svg>
+            </a></li>
+           
+            <li><a href="#" id="updProfile">Profile</a></li>
+            <li><a href="#" id="sideBar-updPassword">Update Password</a></li>
+            <li><a href="#" id="sideBar-signOut">Log Out</a></li>
         </ul>
-        <div class="hamburger" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <ul>
+            <li><a href="#">Coding2go</a></li>
+            <li class="hideOnMobile"><a href="#" id="navBar-updPassword">Update Password</a></li>
+            <li class="hideOnMobile"><a href="#" id="updProfile">Profile</a></li>
+            <li class="hideOnMobile"><a href="#" id="navBar-signOut">Log Out</a></li>
+            <li><button id="theme-toggle" class="theme-btn">🌙 Dark Mode</button></li> <!-- Moved to sidebar -->
+
+            <li class="menu-button"><a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#5f6368">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+                </svg>
+            </a></li>
+        </ul>
     </nav>
-
-    <!-- Add User Button -->
-    <button class="add-user-btn" id="addUser">Add User</button>
-
-    <!-- User Table -->
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone No.</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="data"></tbody>
-        <tfoot></tfoot>
-    </table>
-
-    <div id="content"></div>
+    <!-- Password Update Modal -->
+<div id="passwordModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Update Password</h2>
+        <form id="passwordForm">
+            <!-- <input type="password" id="currentPassword" placeholder="Current Password" required> -->
+            <input type="password" id="newPassword" placeholder="New Password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit" id="updPassword">Update</button>
+        </form>
+    </div>
+</div>
 
     <!-- Scripts -->
     <script type="module" src="app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.min.js"></script>
+    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.min.js"></script> -->
 </body>
 </html>

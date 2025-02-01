@@ -43,7 +43,15 @@ export function handleThemeToggle() {
 
 // Function to initialize all actions after DOM is fully loaded
 export function init() {
-    handleSidebar();
-    handleThemeToggle();
+       if (document.querySelector('.sidebar')) {
+               
+               handleSidebar();
+           }
+       if (document.getElementById("theme-toggle")) {
+               
+            //    handleSidebar();
+               handleThemeToggle();
+           }
+           
 }
 

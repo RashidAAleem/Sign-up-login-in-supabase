@@ -1,354 +1,279 @@
-import { supabase } from "./supabase.js";
-export const auth = () => {
-  // app.js
+import { supabaseConf } from "./supabase.js";
+import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/+esm";
 
-  const firstName = document.getElementById("signUpFName");
-  const lastName = document.getElementById("signUpLName");
-  const phoneNo = document.getElementById("signUpPhone");
-  const email = document.getElementById("email");
-  const password = document.getElementById("signUpPassword");
-  const signUpBtn = document.getElementById("signUp");
-  const loginEmail = document.getElementById("loginEmail")
-  const loginPassword = document.getElementById("loginPassword")
-const loginBtn = document.getElementById("login")
-const googleId = document.getElementById('googleId')
-const signOutBtn = document.getElementById('signOut')
-const updPassword = document.getElementById('updPassword')
-const newPassword = document.getElementById('newPassword')
-const rstPassword = document.getElementById('rstPassword')
+// Handle sign-up functionality
+export function handleSignUp() {
+  const fullName = document.getElementById("signup-name");
+  const SignUpEmail = document.getElementById("signup-email");
+  const SignUpPassword = document.getElementById("signup-password");
+  const signUpBtn = document.getElementById("signUp-btn");
+  const loginForm = document.getElementById("login-form");
+  const signupForm = document.getElementById("signup-form");
+  // const toLogin = document.getElementById('to-login');  // Link to switch to login form
 
-// rstPassword.addEventListener('click')    
-if (rstPassword) {
-    rstPassword.addEventListener('click',async(e)=>{
-e.preventDefault();
-        try {
-    const { data, error } = await supabase.auth.updateUser({
-        password: newPassword.value
-      })
-      if (error) {
-        console.log(error);
+  if (signUpBtn) {
+    signUpBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      signUpBtn.disabled = true;
+      // Validate input fields
+      if (!fullName.value || !SignUpEmail.value || !SignUpPassword.value) {
+        Swal.fire({
+          title: "Error",
+          text: "All fields are required.",
+          icon: "error",
+        });
+        signUpBtn.disabled = false;
+        return;
       }
-      console.log("Success", data);
-      
-      
-} catch (error) {
-    
-}
-    })
-}  
 
-if(signOutBtn && updPassword){
-  
-    updPassword.addEventListener('click',()=>{
-        
-        location.href = 'reset.html'
-        
+      try {
+        const { data, error } = await supabaseConf.auth.signUp({
+          email: SignUpEmail.value,
+          password: SignUpPassword.value,
+        });
+
+        if (error) {
+          Swal.fire({
+            title: "Error",
+            text: error.message,
+            icon: "error",
+          });
+        } else {
+          Swal.fire({
+            title: "Success",
+            text: "Your account has been created. Click below to login",
+            icon: "success",
+          }).then(() => {
+            signupForm.classList.remove("active");
+            loginForm.classList.add("active");
+          });
+        }
+      } catch (err) {
+        console.error("Error->", err);
+        Swal.fire({
+          title: "Error",
+          text: "An unexpected error occurred. Please try again.",
+          icon: "error",
+        });
+      } finally {
+        // Clear the input fields after submission
+        fullName.value = "";
+        SignUpEmail.value = "";
+        SignUpPassword.value = "";
+      }
     });
+  } else {
+    // console.error("Sign-up button not found!");
+  }
+}
+export function handleLogin() {
+  // const fullName = document.getElementById('signup-name');
+  const loginEmail = document.getElementById("login-email");
+  const loginPassword = document.getElementById("login-password");
+  const loginBtn = document.getElementById("login-btn");
 
-signOutBtn.addEventListener('click', async()=>{
+  if (loginBtn) {
+    loginBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      loginBtn.disabled = true;
+      // Validate input fields
+      if (!loginEmail.value || !loginPassword.value) {
+        Swal.fire({
+          title: "Error",
+          text: "All fields are required.",
+          icon: "error",
+        });
+        loginBtn.disabled = false;
+        return;
+      }
+
+      try {
+        const { data, error } = await supabaseConf.auth.signInWithPassword({
+          email: loginEmail.value,
+          password: loginPassword.value,
+        });
+
+        if (error) {
+          Swal.fire({
+            title: "Error",
+            text: error.message,
+            icon: "error",
+          });
+        } else {
+          Swal.fire({
+            title: "Success",
+            text: "Login Successful. ",
+            icon: "success",
+          }).then(() => {
+            location.href = "admin.html";
+          });
+        }
+      } catch (err) {
+        console.error("Error->", err);
+        Swal.fire({
+          title: "Error",
+          text: "An unexpected error occurred. Please try again.",
+          icon: "error",
+        });
+      } finally {
+        // Clear the input fields after submission
+        // fullName.value = "";
+        loginEmail.value = "";
+        loginPassword.value = "";
+      }
+    });
+  } else {
+    // console.error("Sign-up button not found!");
+  }
+}
+export function handleSignOut() {
+  const signOutBtns = [
+    document.getElementById("navBar-signOut"),
+    document.getElementById("sideBar-signOut"),
+  ];
+
+  // Function to handle sign-out
+  const signOutHandler = async () => {
     try {
-        const { error } = await supabase.auth.signOut()
-        if(error){
-            console.log(error);
+      const { error } = await supabaseConf.auth.signOut();
+      if (error) {
+        Swal.fire({
+          title: "Error",
+          text: error.message,
+          icon: "error",
+        });
+      } else {
+        Swal.fire({
+          title: "Success",
+          text: "Logout Successful.",
+          icon: "success",
+        }).then(() => {
+          location.href = "index.html";
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        title: "Error",
+        text: "An unexpected error occurred during logout.",
+        icon: "error",
+      });
+    }
+  };
+
+  // Attach event listeners to both buttons if they exist
+  signOutBtns.forEach((btn) => {
+    if (btn) {
+      btn.addEventListener("click", signOutHandler);
+    }
+  });
+}
+
+export function handleupdPassword() {
+  const openModalBtns = [
+    document.getElementById("navBar-updPassword"),
+    document.getElementById("sideBar-updPassword"),
+  ];
+
+  const modal = document.getElementById("passwordModal");
+  const closeBtn = document.querySelector(".close");
+  if (!modal || !closeBtn) {
+    // console.error("Modal or close button not found!");
+    return;
+  }
+  const updPasswordBtn = document.getElementById("updPassword");
+  const newPassword = document.getElementById("newPassword");
+  const confirmPassword = document.getElementById("confirmPassword");
+  if (!updPasswordBtn) {
+    console.error("Update button not found!");
+    return;
+  }
+  // Function to handle sign-out
+  const updPasswordHandler = () => {
+    modal.style.display = "flex";
+  };
+
+  // Attach event listeners to both buttons if they exist
+  openModalBtns.forEach((btn) => {
+    if (btn) {
+      btn.addEventListener("click", updPasswordHandler);
+    }
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+  updPasswordBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      if (newPassword.value === confirmPassword.value) {
+        const { data, error } = await supabaseConf.auth.updateUser({
+          password: newPassword.value,
+        });
+        if (error) {
+            Swal.fire({
+                title: "Error",
+                text: error.message,
+                icon: "error",
+              });
+        } else {
+          console.log("Password Changed Successfully", data);
+          Swal.fire({
+            title: "Success",
+            text: "Password Update Successful.",
+            icon: "success",
+          });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        title: "Error",
+        text: "An unexpected error occurred. Please try again.",
+        icon: "error",
+      });
+    } finally {
+      // Clear the input fields after submission
+      newPassword.value = "";
+      confirmPassword.value = "";
+      
+    }
+  });
+}
+
+export function changePassword(){
+    const confirmEmail = document.getElementById('confirm-email')
+    const newChangePassword = document.getElementById('new-password')
+    const confirmChangePassword = document.getElementById('confirm-password')
+const changePasswordBtn = document.getElementById('changePassword-btn')
+    changePasswordBtn.addEventListener('click',()=>{
+        try {
+            if (newChangePassword === confirmChangePassword) {
+                
+            } else {
+                console.log("Password Does not match");
+                
+            }
+        } catch (err) {
+            console.error(err);
             
         }
-        console.log("success");
-        location.href = "index.html"
-        
-    } catch (error) {
-        
-    }
-})
-
-
-}  
-if (loginBtn && signUpBtn && googleId ){
-
-    googleId.addEventListener('click',async()=>{
-try {
-    await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `https://iljsehndhytyiougjhmg.supabase.co/auth/v1/callback`,
-        },
-      })
-    
-    
-} catch (err) {
-    console.log(err);
-    
-}
     })
-
-    loginBtn.addEventListener('click', async(e)=>{
-    e.preventDefault();
-try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: loginEmail.value,
-        password: loginPassword.value,
-      })
-          if (error) {
-        console.log("Error", error);
-      } else {
-          console.log("Success", data);
-          location.href = "admin.html"
-        }
-        
-    } catch (err) {
-    console.log(err);
-    
 }
-
-})
-
-
-signUpBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
-    try {
-        const { data, error } = await supabase.auth.signUp({
-        email: email.value,
-        password: password.value,
-    });
-    
-    if (error) {
-        console.log("Error", error);
-    } else {
-        console.log("Success", data);
-    }
-} catch (err) {
-    console.error(err);
+// Initialize the sign-up process when the DOM is ready
+// Initialize the sign-up process when the DOM is ready
+export function auth() {
+  document.addEventListener("DOMContentLoaded", () => {
+    handleSignUp();
+    handleLogin();
+    handleSignOut(); // No need for the check here, as handleSignOut already checks for element existence
+    handleupdPassword();
+    changePassword();
+  });
 }
-
-//     // const data = {
-    
-//     //     firstName : firstName.value,
-//     //     lastName : lastName.value,
-//     //     phoneNo : phoneNo.value,
-//     //     password : password.value
-//     // }
-//     // console.log(data);
-});
-
-}
-
-
-
-};
-
-
-  // //reset password
-
-  // // const changePassword = document.getElementById('changePassword');
-  // // changePassword.addEventListener('click', async (e) => {
-  // //     e.preventDefault();
-
-  // //     const phoneNo = document.getElementById('confirmPhone').value; // .value is needed to get input field value
-  // //     const email = document.getElementById('confirmEmail').value;   // Same as above
-  // //     const newPassword = document.getElementById('newPassword').value;
-  // //     const confirmPassword = document.getElementById('confirmPassword').value;
-
-  // //     // Check if new password and confirm password match
-  // //     if (newPassword !== confirmPassword) {
-  // //         alert("New Password and Confirm Password do not match.");
-  // //         return;
-  // //     }
-
-  // //     try {
-  // //         // Query user based on email and phone number
-  // //         const { data: user, error: userError } = await supabase
-  // //             .from('Users')
-  // //             .select('*')
-  // //             .eq('email', email)
-  // //             .eq('phone', phoneNo)
-  // //             .single(); // Make sure only one user is returned
-
-  // //         if (userError) {
-  // //             alert('User not found or error in validation');
-  // //             return;
-  // //         }
-
-  // //         // Update password using Supabase auth
-  // //         const { error: passwordUpdateError } = await supabase.auth.updateUser({
-  // //             password: newPassword,
-  // //         });
-
-  // //         if (passwordUpdateError) {
-  // //             alert('Error updating password');
-  // //             return;
-  // //         }
-
-  // //         alert('Password successfully updated');
-  // //     } catch (error) {
-  // //         console.error(error.message);
-  // //         alert('An error occurred. Please try again.');
-  // //     }
-  // // });
-
-  // //signup
-
-  // try {
-  //     const signUpBtn = document.getElementById('signUp');
-  //     signUpBtn.addEventListener('click', async(e) => {
-  //         e.preventDefault();  // Prevent page reload
-  //         const firstName = document.getElementById('signUpFName').value;
-  //         const lastName = document.getElementById('signUpLName').value;
-  //         const phoneNo = document.getElementById('signUpPhone').value;
-  //         const email = document.getElementById('email').value;
-  //         const password = document.getElementById('signUpPassword').value;
-
-  //         // Sign up the user using Supabase auth
-  //         const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-  //             email: email,
-  //             password: password,
-  //         });
-
-  //         if (signUpError) {
-  //             // Display error alert
-  //             Swal.fire({
-  //                 icon: 'error',
-  //                 title: 'Oops...',
-  //                 text: signUpError.message,
-  //                 showClass: { popup: 'animate__animated animate__fadeInUp animate__faster' },
-  //                 hideClass: { popup: 'animate__animated animate__fadeOutDown animate__faster' }
-  //             });
-  //         } else {
-  //             // Add the user data to the authUser table
-  //             const { error: dbError } = await supabase
-  //                 .from('authUser')
-  //                 .insert({
-  //                     user_id: signUpData.user.id,  // Associate the user's ID
-  //                     firstName: firstName,
-  //                     lastName: lastName,
-  //                     phoneNo: phoneNo,
-  //                     email: email
-  //                 });
-
-  //             if (dbError) {
-  //                 // Display error if data insertion fails
-  //                 Swal.fire({
-  //                     icon: 'error',
-  //                     title: 'Oops...',
-  //                     text: 'Error saving user data: ' + dbError.message,
-  //                 });
-  //             } else {
-  //                 // Display success alert
-  //                 Swal.fire({
-  //                     icon: 'success',
-  //                     title: 'Sign-up Successful!',
-  //                     text: 'Your account has been created successfully.',
-  //                     confirmButtonText: 'Go to Login',
-  //                 }).then((result) => {
-  //                     if (result.isConfirmed) {
-  //                         // Toggle to login form
-  //                         const loginForm = document.getElementById('loginForm');
-  //                         const signUpForm = document.getElementById('signUpForm');
-  //                         loginForm.classList.remove('hidden');
-  //                         signUpForm.classList.add('hidden');
-  //                     }
-  //                 });
-  //             }
-  //         }
-  //     });
-  // } catch (error) {
-  //     console.error('Unexpected error:', error.message);
-  // }
-
-  // //login
-
-  // try {
-  //     const loginBtn = document.getElementById('login')
-  //     loginBtn.addEventListener('click', async(e)=>{
-  //         e.preventDefault();
-  //         const email = document.getElementById('loginEmail')
-  //         const password = document.getElementById('loginPassword')
-
-  //         const { data, error } = await supabase.auth.signInWithPassword({
-  //             email: email.value,
-  //             password: password.value,
-  //           })
-  //           if (error) {
-  //             // Display an error alert if sign-up fails
-  //             Swal.fire({
-  //               icon: 'error',
-  //               title: 'Oops...',
-  //               text: error.message,
-  //               showClass: {
-  //                   popup: 'animate__animated animate__fadeInUp animate__faster'
-  //               },
-  //               hideClass: {
-  //                   popup: 'animate__animated animate__fadeOutDown animate__faster'
-  //               }
-  //           });
-  //           } else {
-  //           // Display success alert if sign-up is successful
-  //           Swal.fire({
-  //               icon: 'success',
-  //               title: 'Log-In Successful!',
-  //               text: 'Your have been logged in successfully.',
-  //               confirmButtonText: 'Continue to Admin',
-  //               showClass: {
-  //                   popup: 'animate__animated animate__fadeInUp animate__faster'
-  //               },
-  //               hideClass: {
-  //                   popup: 'animate__animated animate__fadeOutDown animate__faster'
-  //               }
-  //           }).then((result) => {
-  //               if (result.isConfirmed) {
-  //                   // Redirect to admin.html
-
-  //                   window.location.href = 'admin.html'
-
-  //               }
-  //           });
-  //           }
-  //           });
-  // } catch (error) {
-  //     console.error(error.message)
-  // }
-
-  // // const displayData = document.getElementById('data')
-
-  // const displayData = document.getElementById('data');
-
-  // (async () => {
-  //     try {
-  //         const { data, error } = await supabase
-  //             .from('authUser') // Correct query
-  //             .select('*'); // Fetch all columns
-
-  //         if (error) {
-  //             console.error("Error fetching data from authUser table:", error);
-  //             return;
-  //         }
-
-  //         if (data.length > 0) {
-  //             // Generate rows dynamically
-  //             const rows = data.map(user => `
-  //                 <tr>
-  //         <td>${user.id}</td>
-  //         <td>${user.firstName}</td>
-  //         <td>${user.lastName}</td>
-  //         <td>${user.phoneNo}</td>
-  //         <td>${user.email}</td>
-  //         <td>
-  //             <div class="custom-dropdown">
-  //                 <button class="dropdown-btn">Select</button>
-  //                 <div class="dropdown-content">
-  //                     <a href="#" onclick="editUser(${user.id})">Edit</a>
-  //                     <a href="#" onclick="deleteUser(${user.id})">Delete</a>
-  //                 </div>
-  //             </div>
-  //         </td>
-  //     </tr>
-  //             `).join(''); // Combine rows into a single string
-
-  //             // Insert rows into the table
-  //             displayData.innerHTML = rows;
-  //         } else {
-  //             displayData.innerHTML = '<tr><td colspan="5">No users found</td></tr>';
-  //         }
-  //     } catch (error) {
-  //         console.error("Unexpected error:", error);
-  //     }
-  // })();
-
