@@ -100,6 +100,7 @@ export function handleLogin() {
             icon: "error",
           });
         } else {
+          localStorage.setItem("user", JSON.stringify(data.user))
           Swal.fire({
             title: "Success",
             text: "Login Successful. ",
@@ -252,19 +253,22 @@ export function changePassword(){
     const newChangePassword = document.getElementById('new-password')
     const confirmChangePassword = document.getElementById('confirm-password')
 const changePasswordBtn = document.getElementById('changePassword-btn')
-    changePasswordBtn.addEventListener('click',()=>{
-        try {
-            if (newChangePassword === confirmChangePassword) {
-                
-            } else {
-                console.log("Password Does not match");
-                
-            }
-        } catch (err) {
-            console.error(err);
-            
-        }
-    })
+if (changePasswordBtn) {
+  
+  changePasswordBtn.addEventListener('click',()=>{
+    try {
+      if (newChangePassword === confirmChangePassword) {
+        
+      } else {
+        console.log("Password Does not match");
+        
+      }
+    } catch (err) {
+      console.error(err);
+      
+    }
+  })
+}
 }
 // Initialize the sign-up process when the DOM is ready
 // Initialize the sign-up process when the DOM is ready
