@@ -3,7 +3,9 @@ import Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/+esm";
 
 // Handle sign-up functionality
 export function handleSignUp() {
-  const fullName = document.getElementById("signup-name");
+  const firstName = document.getElementById("signup-fName");
+  const lastName = document.getElementById("signup-lName");
+  const phoneNo = document.getElementById("signup-PhoneNo");
   const SignUpEmail = document.getElementById("signup-email");
   const SignUpPassword = document.getElementById("signup-password");
   const signUpBtn = document.getElementById("signUp-btn");
@@ -16,7 +18,7 @@ export function handleSignUp() {
       e.preventDefault();
       signUpBtn.disabled = true;
       // Validate input fields
-      if (!fullName.value || !SignUpEmail.value || !SignUpPassword.value) {
+      if (!firstName.value || !lastName.value || !SignUpEmail.value || !SignUpPassword.value) {
         Swal.fire({
           title: "Error",
           text: "All fields are required.",
@@ -39,14 +41,31 @@ export function handleSignUp() {
             icon: "error",
           });
         } else {
-          Swal.fire({
-            title: "Success",
-            text: "Your account has been created. Click below to login",
-            icon: "success",
-          }).then(() => {
-            signupForm.classList.remove("active");
-            loginForm.classList.add("active");
-          });
+          const {error: insertError } = await supabaseConf.from("authUser").insert({
+            user_id: data.user.id,
+            firstName:firstName.value,
+            lastName:lastName.value,
+            phoneNo:phoneNo.value,
+            email:SignUpEmail.value,
+          })
+          if (insertError) {
+            Swal.fire({
+              title: "Error",
+              text:"Account created, but There was an error saving user details.",
+              icon: 'error'
+            })
+            
+          } else {
+            
+            Swal.fire({
+              title: "Success",
+              text: "Your account has been created. Click below to login",
+              icon: "success",
+            }).then(() => {
+              signupForm.classList.remove("active");
+              loginForm.classList.add("active");
+            });
+          }
         }
       } catch (err) {
         console.error("Error->", err);
@@ -57,7 +76,9 @@ export function handleSignUp() {
         });
       } finally {
         // Clear the input fields after submission
-        fullName.value = "";
+        fName.value = "";
+        lName.value = "";
+        phoneNo.value = "";
         SignUpEmail.value = "";
         SignUpPassword.value = "";
       }
@@ -100,14 +121,30 @@ export function handleLogin() {
             icon: "error",
           });
         } else {
-          localStorage.setItem("user", JSON.stringify(data.user))
-          Swal.fire({
-            title: "Success",
-            text: "Login Successful. ",
-            icon: "success",
-          }).then(() => {
-            location.href = "admin.html";
-          });
+          const user = data.user
+          localStorage.setItem("user", JSON.stringify(user));
+          const{data: userDetails, error: fetchError} = await supabaseConf
+          .from('authUser')
+          .select("firstName, lastName, phoneNo")
+          .eq("user_id", user.id)
+          .single();
+          if (fetchError){
+            console.error("Error fetching user details:", fetchError);
+            
+          }else{
+            localStorage.setItem("userDetails", JSON.stringify(userDetails));
+            Swal.fire({
+              title: "Success",
+              text: "Login Successful. ",
+              icon: "success",
+            }).then(() => {
+              // const userData = localStorage.getItem("userDetails", JSON.parse(userDetails));
+              // const userData = JSON.parse(localStorage.getItem("userDetails"));
+              // console.log(userData);
+              
+              location.href = "admin.html";
+            });
+          }
         }
       } catch (err) {
         console.error("Error->", err);
@@ -177,7 +214,7 @@ export function handleupdPassword() {
   ];
 
   const modal = document.getElementById("passwordModal");
-  const closeBtn = document.querySelector(".close");
+  const closeBtn = document.getElementById("close");
   if (!modal || !closeBtn) {
     // console.error("Modal or close button not found!");
     return;
