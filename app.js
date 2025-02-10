@@ -124,3 +124,109 @@ function saveProfileData() {
     toggleEditMode(false);
     alert("Profile updated successfully!");
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const title = document.getElementById('postTitle');
+    const post = document.getElementById('postContent');
+    const postSubmitBtn = document.getElementById('submitPost');
+    const showPost = document.getElementById('showPost');
+
+    postSubmitBtn.addEventListener('click', () => {
+        if (title.value.trim() === "" || post.value.trim() === "") {
+            alert("Title and Post content cannot be empty!");
+            return;
+        }
+
+        const postId = Date.now();
+
+        // Create post card
+        const postCard = document.createElement("div");
+        postCard.classList.add("post-card");
+        postCard.dataset.id = postId;
+        postCard.innerHTML = `
+            <h2 class="post-title">${title.value}</h2>
+            <p class="post-content">${post.value}</p>
+            <div class="post-actions">
+                <button class="edit-btn">Edit</button>
+                <button class="save-btn" style="display:none;">Save</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        `;
+
+        // Append post card
+        showPost.appendChild(postCard);
+
+        // Attach event listeners dynamically
+        postCard.querySelector('.edit-btn').addEventListener('click', () => editPost(postCard));
+        postCard.querySelector('.save-btn').addEventListener('click', () => savePost(postCard));
+        postCard.querySelector('.delete-btn').addEventListener('click', () => deletePost(postCard));
+
+        // Clear input fields
+        title.value = "";
+        post.value = "";
+    });
+
+    function editPost(postCard) {
+        const postTitle = postCard.querySelector('.post-title');
+        const postContent = postCard.querySelector('.post-content');
+        const editBtn = postCard.querySelector('.edit-btn');
+        const saveBtn = postCard.querySelector('.save-btn');
+        const deleteBtn = postCard.querySelector('.delete-btn');
+
+        // Replace text with input fields for editing
+        const titleInput = document.createElement("input");
+        titleInput.type = "text";
+        titleInput.value = postTitle.innerText;
+        titleInput.classList.add("edit-title");
+
+        const contentInput = document.createElement("textarea");
+        contentInput.value = postContent.innerText;
+        contentInput.classList.add("edit-content");
+
+        // Replace existing elements with input fields
+        postCard.replaceChild(titleInput, postTitle);
+        postCard.replaceChild(contentInput, postContent);
+
+        // Toggle button visibility
+        editBtn.style.display = "none";
+        saveBtn.style.display = "inline-block";
+        deleteBtn.style.display = "none"; // Hide delete button while editing
+    }
+
+    function savePost(postCard) {
+        const titleInput = postCard.querySelector('.edit-title');
+        const contentInput = postCard.querySelector('.edit-content');
+        const editBtn = postCard.querySelector('.edit-btn');
+        const saveBtn = postCard.querySelector('.save-btn');
+        const deleteBtn = postCard.querySelector('.delete-btn');
+
+        if (titleInput.value.trim() === "" || contentInput.value.trim() === "") {
+            alert("Title and content cannot be empty!");
+            return;
+        }
+
+        // Restore updated text elements
+        const updatedTitle = document.createElement("h2");
+        updatedTitle.classList.add("post-title");
+        updatedTitle.innerText = titleInput.value;
+
+        const updatedContent = document.createElement("p");
+        updatedContent.classList.add("post-content");
+        updatedContent.innerText = contentInput.value;
+
+        postCard.replaceChild(updatedTitle, titleInput);
+        postCard.replaceChild(updatedContent, contentInput);
+
+        // Toggle button visibility
+        editBtn.style.display = "inline-block";
+        saveBtn.style.display = "none";
+        deleteBtn.style.display = "inline-block"; // Show delete button back
+    }
+
+    function deletePost(postCard) {
+        if (confirm("Are you sure you want to delete this post?")) {
+            postCard.remove();
+        }
+    }
+});

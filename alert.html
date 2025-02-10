@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Alert Types</title>
+
+    <!-- Bootstrap CSS (Required for Lobibox) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery (Required for Lobibox) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- iziToast -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
+    <!-- Noty -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css">
+
+    <!-- Notyf -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
+    <!-- Lobibox -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Lobibox/1.2.4/css/lobibox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Lobibox/1.2.4/js/lobibox.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Bootstrap JS (Required for Lobibox) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .btn-native { background: #007bff; color: white; }
+        .btn-toastr { background: #ff9800; color: white; }
+        .btn-iziToast { background: #673ab7; color: white; }
+        .btn-noty { background: #009688; color: white; }
+        .btn-notyf { background: #4caf50; color: white; }
+        .btn-lobibox { background: #ff5722; color: white; }
+        .btn-swal { background: #9c27b0; color: white; }
+        .btn-bootstrap { background: #17a2b8; color: white; }
+        .btn-gsap { background: #ff4081; color: white; }
+
+        /* GSAP Notification Styling */
+        .gsap-notification {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff4081;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Click the Buttons to See Different Alerts</h2>
+
+    <div class="container">
+        <button class="btn-native" onclick="nativeAlert()">Native Alert</button>
+        <button class="btn-toastr" onclick="toastrAlert()">Toastr</button>
+        <button class="btn-iziToast" onclick="iziToastAlert()">iziToast</button>
+        <button class="btn-noty" onclick="notyAlert()">Noty</button>
+        <button class="btn-notyf" onclick="notyfAlert()">Notyf</button>
+        <button class="btn-lobibox" onclick="lobiboxAlert()">Lobibox</button>
+        <button class="btn-swal" onclick="sweetAlert()">SweetAlert2</button>
+        <button class="btn-bootstrap" onclick="showBootstrapAlert()">Bootstrap Alert</button>
+        <button class="btn-gsap" onclick="gsapNotification()">GSAP Notification</button>
+
+        <!-- Bootstrap Alert -->
+        <div id="bootstrap-alert" class="alert alert-info mt-3" style="display: none;">
+            This is a Bootstrap alert! <button type="button" class="btn-close" onclick="hideBootstrapAlert()"></button>
+        </div>
+
+        <!-- GSAP Notification -->
+        <div id="gsap-alert" class="gsap-notification">
+            This is a GSAP Animated Alert!
+        </div>
+    </div>
+
+    <script>
+        function nativeAlert() {
+            alert("This is a native JavaScript alert!");
+        }
+
+        function toastrAlert() {
+            toastr.success("This is a Toastr notification!");
+        }
+
+        function iziToastAlert() {
+            iziToast.success({
+                title: 'Success',
+                message: 'This is an iziToast notification!',
+                position: 'topRight'
+            });
+        }
+
+        function notyAlert() {
+            new Noty({
+                type: 'success',
+                layout: 'topRight',
+                text: 'This is a Noty alert!',
+                timeout: 3000
+            }).show();
+        }
+
+        function notyfAlert() {
+            var notyf = new Notyf();
+            notyf.success("This is a Notyf alert!");
+        }
+
+        function lobiboxAlert() {
+            Lobibox.notify('success', {
+                msg: 'This is a Lobibox notification!',
+                position: 'top right',
+                sound: false // Prevent missing file errors
+            });
+        }
+
+        function sweetAlert() {
+            Swal.fire({
+                title: 'SweetAlert2',
+                text: 'This is a SweetAlert2 notification!',
+                icon: 'success'
+            });
+        }
+
+        function showBootstrapAlert() {
+            document.getElementById('bootstrap-alert').style.display = 'block';
+        }
+
+        function hideBootstrapAlert() {
+            document.getElementById('bootstrap-alert').style.display = 'none';
+        }
+
+        function gsapNotification() {
+            const gsapAlert = document.getElementById('gsap-alert');
+            gsapAlert.style.display = "block";
+
+            gsap.fromTo("#gsap-alert", 
+                { y: "-100%", opacity: 0 }, 
+                { y: "20px", opacity: 1, duration: 0.5, ease: "bounce.out" }
+            );
+
+            setTimeout(() => {
+                gsap.to("#gsap-alert", { y: "-100%", opacity: 0, duration: 0.5, onComplete: () => {
+                    gsapAlert.style.display = "none";
+                }});
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
